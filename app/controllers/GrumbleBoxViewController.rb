@@ -39,54 +39,54 @@ class GrumbleBoxViewController < UIViewController
       #form save logic will come here
       showAlert("Success", title:"This should work when form submit is valid")
     else
-     showAlert("Error", title:"Please, fill all the fields.")
-   end
- end
+      showAlert("Error", title:"Please, fill all the fields.")
+    end
+  end
 
- def isvalidForm
-  #form validation should come here
-  false
-end
+  def isvalidForm
+    #form validation should come here
+    false
+  end
 
- def close
-  dismissModalViewControllerAnimated true
-end
+  def close
+    dismissModalViewControllerAnimated true
+  end
 
-def showAlert(message, title:title)
-  alert = UIAlertView.alloc.initWithTitle(title,
-    message:message,
-    delegate:self,
-    cancelButtonTitle:'OK',
-    otherButtonTitles:nil)
-  alert.show
-end
+  def showAlert(message, title:title)
+    alert = UIAlertView.alloc.initWithTitle(title,
+      message:message,
+      delegate:self,
+      cancelButtonTitle:'OK',
+      otherButtonTitles:nil)
+    alert.show
+  end
 
-def label_top
-  self.view.viewWithTag HEADER_LABEL_TAG 
-end
+  def label_top
+    self.view.viewWithTag HEADER_LABEL_TAG 
+  end
 
-def text_field_name
-  self.view.viewWithTag NAME_TEXT_FIELD_TAG
-end
+  def text_field_name
+    self.view.viewWithTag NAME_TEXT_FIELD_TAG
+  end
 
-def text_field_complain
-  self.view.viewWithTag COMPLAIN_FIELD_TAG
-end
+  def text_field_complain
+    self.view.viewWithTag COMPLAIN_FIELD_TAG
+  end
 
-def text_field_address
-  self.view.viewWithTag ADDRESS_FIELD_TAG
-end
+  def text_field_address
+    self.view.viewWithTag ADDRESS_FIELD_TAG
+  end
 
-def button
- btn = self.view.viewWithTag BUTTON_TAG
- btn.addTarget(self, action:'enter', forControlEvents:UIControlEventTouchUpInside)
-end
+  def button
+   btn = self.view.viewWithTag BUTTON_TAG
+   btn.addTarget(self, action:'enter', forControlEvents:UIControlEventTouchUpInside)
+  end
 
-def clearField
-  @text_field_name.text, @text_field_mail.text =  NSString.new,  NSString.new      
-end
+  def clearField
+    @text_field_name.text, @text_field_mail.text =  NSString.new,  NSString.new      
+  end
 
-def subViewAdder arr 
-  arr.each {|field| self.view.addSubview field}
-end
+  def subViewAdder arr 
+    arr.each {|field| self.view.addSubview field}
+  end
 end
