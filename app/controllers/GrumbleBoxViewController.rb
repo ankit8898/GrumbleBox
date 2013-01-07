@@ -35,7 +35,7 @@ class GrumbleBoxViewController < UIViewController
   end
 
   def enter
-    unless isvalidForm
+    if isvalidForm
       Issue.create_new(@text_field_name.text, @text_field_complain.text, @text_field_address.text)
       #form save logic will come here
       showAlert("Success", title:"This should work when form submit is valid")
@@ -46,7 +46,7 @@ class GrumbleBoxViewController < UIViewController
 
   def isvalidForm
     #form validation should come here
-    false
+    ![@text_field_name.text, @text_field_complain.text, @text_field_address.text].any?{|field| field.empty?}
   end
 
   def close
