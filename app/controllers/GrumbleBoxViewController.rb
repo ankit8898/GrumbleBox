@@ -37,8 +37,10 @@ class GrumbleBoxViewController < UIViewController
   def enter
     if isvalidForm
       Issue.create_new(@text_field_name.text, @text_field_complain.text, @text_field_address.text)
+      clearField
       #form save logic will come here
-      showAlert("Success", title:"This should work when form submit is valid")
+      # showAlert("Success", title:"This should work when form submit is valid")
+      # list_grumble_controller = GrumbleBoxListViewController.alloc.initWithNibName(nil, bundle:nil)
     else
       showAlert("Error", title:"Please, fill all the fields.")
     end
@@ -84,7 +86,7 @@ class GrumbleBoxViewController < UIViewController
   end
 
   def clearField
-    @text_field_name.text, @text_field_mail.text =  NSString.new,  NSString.new      
+    @text_field_name.text, @text_field_complain.text, @text_field_address.text =  NSString.new,  NSString.new, NSString.new
   end
 
   def subViewAdder arr 
