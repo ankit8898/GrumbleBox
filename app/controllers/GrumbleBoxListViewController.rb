@@ -1,17 +1,29 @@
-class GrumbleBoxListViewController < UITableViewController
+class GrumbleBoxListViewController < UIViewController
 
   ISSUES_CELL_REUSE_ID = "IssuesCellId"
 
-  def initWithStyle(style)
+  # def initWithStyle(style)
+  #   super
+  #   self.title = "All Complaints"
+  #   self
+  # end
+
+  def viewDidLoad
     super
+
     self.title = "All Complaints"
-    self
+
+    @table = UITableView.alloc.initWithFrame(self.view.bounds)
+    @table.dataSource = self
+    @table.delegate = self
+    @issues = Issue.all
+    self.view.addSubview @table
   end
 
-  def viewWillAppear(animated)
-    @issues =  Issue.all
-    self.tableView.reloadData
-  end
+  # def viewWillAppear(animated)
+  #   @issues =  Issue.all
+  #   self.tableView.reloadData
+  # end
  
   def tableView(tableView, numberOfRowsInSection:section)
     @issues.length
