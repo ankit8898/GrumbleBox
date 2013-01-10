@@ -5,24 +5,32 @@ class GrumbleBoxViewController < UIViewController
   COMPLAIN_FIELD_TAG = 3
   ADDRESS_FIELD_TAG = 4
   BUTTON_TAG = 5
+  COUNT_LABEL_TAG = 6
 
   def loadView
     views = NSBundle.mainBundle.loadNibNamed "GrumbleBoxView", owner:self, options:nil
     self.view = views[0]
+    p self.view.description
     self.title = "New Complaint"
   end
 
   def viewDidLoad
     @label_top = label_top
+    @label_count = label_count
+    @label_count.setNeedsDisplay
     @text_field_name = text_field_name
     @text_field_complain = text_field_complain
     @text_field_address = text_field_address
     @tap_gesture_recognizer = tap_gesture_recognizer
     @button = button
-    subViewAdder [@label_top,@text_field,@button]
+    subViewAdder [@label_top,@text_field,@button,@label_count]
     self.view.addGestureRecognizer(@tap_gesture_recognizer)
   end
-
+ 
+ def viewDidUnload
+  super
+  @label_top,@text_field,@button,@label_count = nil
+end
 
   def dismissKeyboard(tap_gesture_recognizer)
     @text_field_name.resignFirstResponder
@@ -53,6 +61,12 @@ class GrumbleBoxViewController < UIViewController
 
   def close
     dismissModalViewControllerAnimated true
+  end
+
+  def label_count
+    label =  self.view.viewWithTag COUNT_LABEL_TAG 
+    label.text = "#{Issue.count} Complains Listed"
+    label
   end
 
   def showAlert(message, title:title)
