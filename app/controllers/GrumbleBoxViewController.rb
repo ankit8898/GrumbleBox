@@ -6,6 +6,7 @@ class GrumbleBoxViewController < UIViewController
   ADDRESS_FIELD_TAG = 4
   BUTTON_TAG = 5
   COUNT_LABEL_TAG = 6
+  ADD_PHOTO_BUTTON = 7
 
   def loadView
     views = NSBundle.mainBundle.loadNibNamed "GrumbleBoxView", owner:self, options:nil
@@ -122,18 +123,15 @@ class GrumbleBoxViewController < UIViewController
   private
 
   def init_picker_btn
-    view.addSubview(UIButton.buttonWithType(UIButtonTypeRoundedRect).tap do |btn|
-      btn.frame = [[110, 270], [100, 50]]
-      btn.setTitle("Add photo", forState:UIControlStateNormal)
-      btn.addTarget(self, action: :touched, forControlEvents:UIControlEventTouchUpInside)
-    end)
+    btn = self.view.viewWithTag ADD_PHOTO_BUTTON
+    btn.addTarget(self, action: :touched, forControlEvents:UIControlEventTouchUpInside)
   end
 
   def init_image_picker
     @image_picker = UIImagePickerController.alloc.init
     @image_picker.delegate = self
     @image_picker.sourceType = camera_available ?
-      UIImagePickerControllerSourceTypeCamera : UIImagePickerControllerSourceTypePhotoLibrary
+    UIImagePickerControllerSourceTypeCamera : UIImagePickerControllerSourceTypePhotoLibrary
   end
 
   def touched
