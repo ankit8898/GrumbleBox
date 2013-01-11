@@ -7,10 +7,10 @@ class Issue < NanoStore::Model
   attributes :description, :username, :address, :created_at
    
   class << self  
-    def create_new(username, description, address) 
-      obj = new(username: username,
-              description: description,
-              address: address, 
+    def create_new(opts) 
+      obj = new(username: opts[:username],
+              description: opts[:complain_description],
+              address: opts[:address], 
               created_at: Time.now) 
       obj.save  
     end  

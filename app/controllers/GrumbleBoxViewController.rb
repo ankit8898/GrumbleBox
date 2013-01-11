@@ -11,7 +11,6 @@ class GrumbleBoxViewController < UIViewController
   def loadView
     views = NSBundle.mainBundle.loadNibNamed "GrumbleBoxView", owner:self, options:nil
     self.view = views[0]
-    p self.view.description
     self.title = "New Complaint"
   end
 
@@ -49,19 +48,18 @@ class GrumbleBoxViewController < UIViewController
   end
 
   def enter
-    if isvalidForm
-      Issue.create_new(@text_field_name.text, @text_field_complain.text, @text_field_address.text)
+    if isvalidForm?
+      opts = {username: @text_field_name.text, complain_description: @text_field_complain.text, address: @text_field_address.text }
+      Issue.create_new(opts)
       clearField
       label_count
-      #form save logic will come here
-      # showAlert("Success", title:"This should work when form submit is valid")
-      # list_grumble_controller = GrumbleBoxListViewController.alloc.initWithNibName(nil, bundle:nil)
+      showAlert("Success", title:"Your Complain is Listed. ")
     else
       showAlert("Error", title:"Please, fill all the fields.")
     end
   end
 
-  def isvalidForm
+  def isvalidForm?
     #form validation should come here
     ![@text_field_name.text, @text_field_complain.text, @text_field_address.text].any?{|field| field.empty?}
   end
@@ -75,14 +73,9 @@ class GrumbleBoxViewController < UIViewController
     label.text = "#{Issue.count} Complains Listed"
     label
   end
-
-  def showAlert(message, title:title)
-    alert = UIAlertView.alloc.initWithTitle(title,
-      message:message,
-      delegate:self,
-      cancelButtonTitle:'OK',
-      otherButtonTitles:nil)
-    alert.show
+  
+   def clearField
+    @text_field_name.text, @text_field_complain.text, @text_field_address.text =  NSString.new,  NSString.new, NSString.new
   end
 
   def label_top
@@ -105,15 +98,7 @@ class GrumbleBoxViewController < UIViewController
    btn = self.view.viewWithTag BUTTON_TAG
    btn.addTarget(self, action:'enter', forControlEvents:UIControlEventTouchUpInside)
   end
-
-  def clearField
-    @text_field_name.text, @text_field_complain.text, @text_field_address.text =  NSString.new,  NSString.new, NSString.new
-  end
-
-  def subViewAdder arr 
-    arr.each {|field| self.view.addSubview field}
-  end
-  
+ 
   def imagePickerController(picker, didFinishPickingImage:image, editingInfo:info)
     self.dismissModalViewControllerAnimated(true)
     add_image_view(image)
