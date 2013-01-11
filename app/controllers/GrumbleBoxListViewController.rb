@@ -9,14 +9,14 @@ class GrumbleBoxListViewController < UITableViewController
     self 
   end
 
-    def viewWillAppear(animated)
+  def viewWillAppear(animated)
     @issues =  Issue.all
     self.tableView.reloadData
   end
  
- def tableView(tableView, numberOfRowsInSection:section)
-   @issues.length
-end
+  def tableView(tableView, numberOfRowsInSection:section)
+    @issues.length
+  end
 
   def tableView(tableView, cellForRowAtIndexPath:indexPath)
     cell = tableView.dequeueReusableCellWithIdentifier(ISSUES_CELL_REUSE_ID) || UITableViewCell.alloc.initWithStyle(UITableViewCellStyleSubtitle, reuseIdentifier: ISSUES_CELL_REUSE_ID)
