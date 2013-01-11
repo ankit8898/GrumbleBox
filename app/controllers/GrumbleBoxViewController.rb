@@ -46,6 +46,7 @@ end
     if isvalidForm
       Issue.create_new(@text_field_name.text, @text_field_complain.text, @text_field_address.text)
       clearField
+      label_count
       #form save logic will come here
       # showAlert("Success", title:"This should work when form submit is valid")
       # list_grumble_controller = GrumbleBoxListViewController.alloc.initWithNibName(nil, bundle:nil)
