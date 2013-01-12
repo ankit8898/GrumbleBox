@@ -1,23 +1,19 @@
 class GrumbleBoxViewController < UIViewController
 
-  HEADER_LABEL_TAG = 1
-  NAME_TEXT_FIELD_TAG = 2
+
+  NAME_TEXT_FIELD_TAG = 1
   COMPLAIN_FIELD_TAG = 3
-  ADDRESS_FIELD_TAG = 4
+  ADDRESS_FIELD_TAG = 2
   BUTTON_TAG = 5
-  COUNT_LABEL_TAG = 6
-  ADD_PHOTO_BUTTON = 7
+  ADD_PHOTO_BUTTON = 4
 
   def loadView
-    views = NSBundle.mainBundle.loadNibNamed "GrumbleBoxView", owner:self, options:nil
+    views = NSBundle.mainBundle.loadNibNamed "GrumbleNewView", owner:self, options:nil
     self.view = views[0]
     self.title = "New Complaint"
   end
 
   def viewDidLoad
-    @label_top = label_top
-    @label_count = label_count
-    @label_count.setNeedsDisplay
     @text_field_name = text_field_name
     @text_field_complain = text_field_complain
     @text_field_address = text_field_address
@@ -28,7 +24,7 @@ class GrumbleBoxViewController < UIViewController
     init_picker_btn
     init_image_picker
     
-    subViewAdder [@label_top,@text_field,@button,@label_count]
+    subViewAdder [@label_top,@text_field,@button]
     self.view.addGestureRecognizer(@tap_gesture_recognizer)
   end
  
@@ -52,7 +48,6 @@ class GrumbleBoxViewController < UIViewController
       opts = {username: @text_field_name.text, complain_description: @text_field_complain.text, address: @text_field_address.text }
       Issue.create_new(opts)
       clearField
-      label_count
       showAlert("Success", title:"Your Complain is Listed. ")
     else
       showAlert("Error", title:"Please, fill all the fields.")
