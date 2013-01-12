@@ -1,6 +1,12 @@
 
-  def subViewAdder arr 
-    arr.each {|field| self.view.addSubview field}
+  def subViewAdder arr
+    case self.superclass
+    when UIViewController
+      arr.each {|field| self.view.addSubview field}
+    when UITableViewCell
+      p "------------------"
+      arr.each {|field| self.addSubview field}  
+    end
   end
 
     def showAlert(message, title:title)
