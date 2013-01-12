@@ -17,33 +17,36 @@ class GrumbleTableViewCell < UITableViewCell
       @background_image = imageViewWithBackground
       self.addSubview(@background_image)
     end
-    @name_label = labelWithName
+    @name_complain_label = labelWithNameAndComplain
     @grumble_image = grumbleBoxImage
     self.addSubview(@grumble_image)
-    self.addSubview(@name_label)
+    self.addSubview(@name_complain_label)
   end
 
-  def labelWithName
+  def labelWithNameAndComplain
   name_label = UILabel.new.tap do |lb|
   lb.frame = ([[10, 10], [300, 40]])
-  lb.font = UIFont.fontWithName("Optima", size:20)
+  lb.font = UIFont.fontWithName("futura", size:17)
   lb.textColor = UIColor.blackColor
   lb.adjustsFontSizeToFitWidth = true
-  lb.text = "Name:  " + @name
+  lb.text = formatted_message.camelize
   lb.backgroundColor = UIColor.clearColor
   end
 end
 
+ def formatted_message
+  "#{@name} says, #{@complain} !"
+ end
+
 def grumbleBoxImage
   grumble_image = UIImageView.new.tap do |ui|
   ui.image = UIImage.imageNamed('grumbleicon.png')
-  ui.frame = ([[208,20], [102,100]])
+  ui.frame = ([[209,86], [102,100]])
   end
 end
 
 def removePreviousViews
-    @name_label.removeFromSuperview if @name_label
-    @grumble_image.removeFromSuperview if @grumble_image
+    @name_complain_label.removeFromSuperview if @name_complain_label
 end
 
   def imageViewWithBackground
