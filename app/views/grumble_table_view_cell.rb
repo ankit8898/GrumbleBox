@@ -1,5 +1,5 @@
 class GrumbleTableViewCell < UITableViewCell
-  attr_accessor :name, :complain, :address
+  attr_accessor :name, :complain, :address, :image
 
   COMPLAIN_CELL_REUSE_ID = "GrumbleTableViewCell"
 
@@ -8,6 +8,7 @@ class GrumbleTableViewCell < UITableViewCell
     cell.complain = complain_item.description
     cell.name = complain_item.username
     cell.address = complain_item.address
+    cell.image = complain_item.image
     cell
   end
 
@@ -41,7 +42,7 @@ end
 
 def grumbleBoxImage
   grumble_image = UIImageView.new.tap do |ui|
-  ui.image = UIImage.imageNamed('grumbleicon.png')
+  ui.image = @image.nil? ? UIImage.imageNamed('grumbleicon.png') : UIImage.imageWithContentsOfFile(App.resources_path + '/' + @image)
   ui.frame = ([[209,86], [102,100]])
   end
 end
