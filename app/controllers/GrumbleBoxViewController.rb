@@ -71,6 +71,7 @@ class GrumbleBoxViewController < UIViewController
   
    def clearField
     @text_field_name.text, @text_field_complain.text, @text_field_address.text =  NSString.new,  NSString.new, NSString.new
+    @image_view.image = nil;
   end
 
   def label_top
@@ -127,7 +128,7 @@ class GrumbleBoxViewController < UIViewController
   def add_image_view(image)
     @image_view.removeFromSuperview if @image_view
     @image_view = UIImageView.alloc.initWithImage(image)
-    @image_view.frame = [[60, 320], [200, 200]]
+    @image_view.frame = [[120, 300], [90, 90]]
     view.addSubview(@image_view)
   end
 
