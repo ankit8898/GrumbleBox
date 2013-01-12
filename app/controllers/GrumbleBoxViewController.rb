@@ -99,7 +99,7 @@ class GrumbleBoxViewController < UIViewController
   def imagePickerController(picker, didFinishPickingImage:image, editingInfo:info)
     self.dismissModalViewControllerAnimated(true)
     add_image_view(image)
-    apply_image_filter
+    save_image
   end
 
   private
@@ -131,14 +131,16 @@ class GrumbleBoxViewController < UIViewController
     view.addSubview(@image_view)
   end
 
-  def apply_image_filter
-    ci_image = CIImage.imageWithCGImage(@image_view.image.CGImage)
-    filter = CIFilter.filterWithName("CIColorPosterize")
+  def save_image
+    # This should be save on to the server once we make http setup
+    imageData = UIImage.UIImageJPEGRepresentation(@image_view.image, 1)
+    encodedData = [imageData].pack("m0")
+    data = {"image" => encodedData }
+    unpack = data["image"].unpack("m0")
+    @image_name = Time.now.to_s.gsub(/:|-| /,'')
 
-    filter.setValue(ci_image, forKey:KCIInputImageKey)
-    adjusted_image = filter.valueForKey(KCIOutputImageKey)
-
-    new_image = UIImage.imageWithCIImage(adjusted_image)
-    @image_view.image = new_image
+    File.open("#{App.resources_path}/#{@image_name}.jpg", "w+b") do |f|
+      f.write(unpack.first)
+    end
   end
 end
