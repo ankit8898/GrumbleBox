@@ -5,6 +5,7 @@ require 'motion/project'
 require 'rubygems'
 require 'motion-cocoapods'
 require 'nano-store'
+require 'bubble-wrap'
 
 Bundler.require
 
