@@ -91,6 +91,8 @@ class GrumbleBoxViewController < UIViewController
 
   def button
    btn = self.view.viewWithTag BUTTON_TAG
+   btn.layer.cornerRadius = 5.0
+   btn.layer.masksToBounds = true
    btn.addTarget(self, action:'enter', forControlEvents:UIControlEventTouchUpInside)
   end
  
