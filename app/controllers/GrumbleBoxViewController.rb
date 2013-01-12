@@ -45,7 +45,7 @@ class GrumbleBoxViewController < UIViewController
 
   def enter
     if isvalidForm?
-      opts = {username: @text_field_name.text, complain_description: @text_field_complain.text, address: @text_field_address.text }
+      opts = {username: @text_field_name.text, complain_description: @text_field_complain.text, address: @text_field_address.text, image: @image_name + '.jpg'}
       Issue.create_new(opts)
       clearField
       showAlert("Success", title:"Your Complain is Listed. ")
