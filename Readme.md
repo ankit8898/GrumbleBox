@@ -6,4 +6,4 @@
 
 ##Complains Listed
 
-![image](https://github.com/ankit8898/GrumbleBox/raw/master/resources/screensho2.png)
+![image2](https://github.com/ankit8898/GrumbleBox/raw/master/resources/screenshot2.png)
