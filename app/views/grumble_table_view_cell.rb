@@ -1,5 +1,5 @@
 class GrumbleTableViewCell < UITableViewCell
-  attr_accessor :name, :complain, :address, :image_name
+  attr_accessor :name, :complain, :address
 
   COMPLAIN_CELL_REUSE_ID = "GrumbleTableViewCell"
 
@@ -7,6 +7,7 @@ class GrumbleTableViewCell < UITableViewCell
     cell = tableView.dequeueReusableCellWithIdentifier(COMPLAIN_CELL_REUSE_ID) || GrumbleTableViewCell.alloc.initWithStyle(UITableViewCellStyleDefault, reuseIdentifier:COMPLAIN_CELL_REUSE_ID)
     cell.complain = complain_item.description
     cell.name = complain_item.username
+    cell.address = complain_item.address
     cell
   end
 
