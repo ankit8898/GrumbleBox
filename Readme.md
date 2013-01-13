@@ -2,7 +2,7 @@
 
 ##Welcome Screen
 
-![image2](https://github.com/ankit8898/GrumbleBox/raw/master/resources/splash-screen.png)
+![image2](https://github.com/ankit8898/GrumbleBox/raw/master/resources/welcome.png)
 
 ##New Complain Form
 
