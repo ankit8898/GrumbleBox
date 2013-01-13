@@ -3,11 +3,9 @@ class AppDelegate
     NanoStore.shared_store = NanoStore.store(:file, App.documents_path + "/nano.db")
     new_grumble_controller = GrumbleBoxViewController.new
     list_grumble_controller = GrumbleBoxListViewController.new
-    tab_controller = UITabBarController.new
-    tab_controller.viewControllers = [new_grumble_controller, list_grumble_controller]
     @window = UIWindow.alloc.initWithFrame(UIScreen.mainScreen.bounds)
 
-    @window.rootViewController = tab_controller
+    @window.rootViewController = UINavigationController.alloc.initWithRootViewController(new_grumble_controller)
     image_view = UIImageView.alloc.initWithImage(UIImage.imageNamed("Default.png"))
     @window.rootViewController.view.addSubview(image_view)
     @window.rootViewController.view.bringSubviewToFront(image_view)

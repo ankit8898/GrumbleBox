@@ -10,7 +10,7 @@ class GrumbleBoxViewController < UIViewController
   def loadView
     views = NSBundle.mainBundle.loadNibNamed "GrumbleNewView", owner:self, options:nil
     self.view = views[0]
-    self.title = "New Complaint"
+    self.view.backgroundColor =  UIColor.colorWithPatternImage(UIImage.imageNamed('bg'))
   end
 
   def viewDidLoad
@@ -19,6 +19,9 @@ class GrumbleBoxViewController < UIViewController
     @text_field_address = text_field_address
     @tap_gesture_recognizer = tap_gesture_recognizer
     @button = button
+    
+    #custom navigation bar
+    setupNavigationBar
 
     # To capture image
     init_picker_btn
@@ -116,6 +119,24 @@ class GrumbleBoxViewController < UIViewController
     @image_picker.sourceType = camera_available ?
     UIImagePickerControllerSourceTypeCamera : UIImagePickerControllerSourceTypePhotoLibrary
   end
+  
+  def setupNavigationBar
+   self.navigationController.navigationBar.setBackgroundImage(UIImage.imageNamed("header.png"),
+    forBarMetrics:UIBarMetricsDefault)
+   rightButton = UIBarButtonItem.alloc.initWithCustomView(all_complains)
+  self.navigationItem.rightBarButtonItem = rightButton
+  end
+  
+  def all_complains
+    all_complains = UIButton.buttonWithType(UIButtonTypeCustom)
+    all_complains.layer.cornerRadius = 5.0
+    all_complains.layer.masksToBounds = true
+    all_complains.setTitle("All", forState:UIControlStateNormal)
+    all_complains.titleLabel.font = UIFont.fontWithName("Optima",size:18)
+    all_complains.frame = [[280, 50], [56, 41]]
+    all_complains.setBackgroundImage(UIImage.imageNamed("view_all.jpg"), forState:UIControlStateNormal)
+    all_complains
+  end
 
   def touched
     presentModalViewController(@image_picker, animated:true)
@@ -144,4 +165,5 @@ class GrumbleBoxViewController < UIViewController
       f.write(unpack.first)
     end
   end
+
 end
