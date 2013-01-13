@@ -135,7 +135,15 @@ class GrumbleBoxViewController < UIViewController
     all_complains.titleLabel.font = UIFont.fontWithName("Optima",size:18)
     all_complains.frame = [[280, 50], [56, 41]]
     all_complains.setBackgroundImage(UIImage.imageNamed("view_all.jpg"), forState:UIControlStateNormal)
+    all_complains.addTarget(self, 
+      action:"list_complains", 
+      forControlEvents:UIControlEventTouchUpInside)
     all_complains
+  end
+
+  def list_complains
+    all_controller = GrumbleBoxListViewController.new
+    self.navigationController.pushViewController(all_controller, animated: true)
   end
 
   def touched

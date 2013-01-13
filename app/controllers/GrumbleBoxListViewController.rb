@@ -5,7 +5,6 @@ class GrumbleBoxListViewController < UITableViewController
 
   def initWithStyle(style)
     super
-    self.title = "All Complaints"
     self 
   end
 
