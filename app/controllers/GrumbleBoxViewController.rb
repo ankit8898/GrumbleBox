@@ -48,7 +48,7 @@ class GrumbleBoxViewController < UIViewController
 
   def enter
     if isvalidForm?
-      opts = {username: @text_field_name.text, complain_description: @text_field_complain.text, address: @text_field_address.text, image: @image_name + '.jpg'}
+      opts = {username: @text_field_name.text, complain_description: @text_field_complain.text, address: @text_field_address.text, image: @image_name}
       Issue.create_new(opts)
       clearField
       showAlert("Success", title:"Your Complain is Listed. ")
@@ -74,7 +74,7 @@ class GrumbleBoxViewController < UIViewController
   
    def clearField
     @text_field_name.text, @text_field_complain.text, @text_field_address.text =  NSString.new,  NSString.new, NSString.new
-    @image_view.image = nil;
+    @image_view.image = nil if @image_view
   end
 
   def label_top
@@ -167,9 +167,9 @@ class GrumbleBoxViewController < UIViewController
     encodedData = [imageData].pack("m0")
     data = {"image" => encodedData }
     unpack = data["image"].unpack("m0")
-    @image_name = Time.now.to_s.gsub(/:|-| /,'')
+    @image_name = Time.now.to_s.gsub(/:|-| /,'') + ".jpg"
 
-    File.open("#{App.resources_path}/#{@image_name}.jpg", "w+b") do |f|
+    File.open("#{App.resources_path}/#{@image_name}", "w+b") do |f|
       f.write(unpack.first)
     end
   end
