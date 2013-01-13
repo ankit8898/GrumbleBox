@@ -1,6 +1,7 @@
 .repl_history
 build
 tags
+vendor/*
 resources/*.nib
 resources/*.momd
 resources/*.storyboardc
