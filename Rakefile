@@ -13,7 +13,7 @@ Motion::Project::App.setup do |app|
   # Use `rake config' to see complete project settings.
   app.name = 'GrumbleBox'
   app.icons << "grumbleicon.png"
-
+  app.info_plist['UIStatusBarHidden'] = true
   app.pods do
     pod 'NanoStore', '~> 2.5.3'
   end
