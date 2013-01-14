@@ -10,6 +10,9 @@ class GrumbleBoxListViewController < UITableViewController
 
   def viewWillAppear(animated)
     @issues =  Issue.all
+    back_button_background = UIImage.imageNamed("back_btn.jpg").resizableImageWithCapInsets([0, 14, 0, 6])
+    back_button = UIBarButtonItem.appearance.setBackButtonBackgroundImage(back_button_background, forState: UIControlStateNormal, barMetrics: UIBarMetricsDefault)
+    self.navigationItem.backBarButtonItem = back_button
     self.tableView.reloadData
   end
   
