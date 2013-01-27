@@ -28,5 +28,13 @@ class GrumbleBoxListViewController < UITableViewController
   def tableView(tableView, heightForRowAtIndexPath:indexPath)
     200.0
   end
+
+  def tableView(tableView, didSelectRowAtIndexPath:indexPath)
+   complain_item = @issues[indexPath.row]
+  complain_item_controller = ComplainDetailViewController.new
+  complain_item_controller.complain_item = complain_item
+  self.navigationController.pushViewController(complain_item_controller,
+    animated:true)
+end
   
 end
