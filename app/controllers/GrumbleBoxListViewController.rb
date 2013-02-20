@@ -13,6 +13,16 @@ class GrumbleBoxListViewController < UITableViewController
     back_button_background = UIImage.imageNamed("back_btn.jpg").resizableImageWithCapInsets([0, 14, 0, 6])
     back_button = UIBarButtonItem.appearance.setBackButtonBackgroundImage(back_button_background, forState: UIControlStateNormal, barMetrics: UIBarMetricsDefault)
     self.navigationItem.backBarButtonItem = back_button
+
+    add_button_background = UIImage.imageNamed("add_new.png")
+    add_button = UIButton.buttonWithType UIButtonTypeRoundedRect
+    add_button.setBackgroundImage(add_button_background, forState: UIControlStateNormal)
+    add_button.frame = [[120, 50], [25, 25]]
+    add_button.addTarget(self,
+      action: :new_complaint,
+      forControlEvents: UIControlEventTouchUpInside)
+    self.navigationItem.rightBarButtonItem = UIBarButtonItem.alloc.initWithCustomView(add_button)
+
     self.tableView.reloadData
   end
   
