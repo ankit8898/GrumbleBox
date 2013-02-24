@@ -17,11 +17,11 @@ class GrumbleTableViewCell < UITableViewCell
     removePreviousViews
     if @background_image.nil?
       @background_image = imageViewWithBackground
-      self.addSubview(@background_image)
+      #self.addSubview(@background_image)
     end
     @name_complain_label = labelWithNameAndComplain
     @grumble_image = grumbleBoxImage
-    self.addSubview(@grumble_image)
+    #self.addSubview(@grumble_image)
     self.addSubview(@name_complain_label)
   end
 
