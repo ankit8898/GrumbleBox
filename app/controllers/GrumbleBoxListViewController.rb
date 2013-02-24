@@ -8,22 +8,12 @@ class GrumbleBoxListViewController < UITableViewController
     self 
   end
  
-
   def viewWillAppear(animated)
     @issues =  Issue.all
     back_button_background = UIImage.imageNamed("back_btn.jpg").resizableImageWithCapInsets([0, 14, 0, 6])
     back_button = UIBarButtonItem.appearance.setBackButtonBackgroundImage(back_button_background, forState: UIControlStateNormal, barMetrics: UIBarMetricsDefault)
     self.navigationItem.backBarButtonItem = back_button
     setupNavigationBar
-    add_button_background = UIImage.imageNamed("add_new.png")
-    add_button = UIButton.buttonWithType UIButtonTypeRoundedRect
-    add_button.setBackgroundImage(add_button_background, forState: UIControlStateNormal)
-    add_button.frame = [[120, 50], [25, 25]]
-    add_button.addTarget(self,
-      action: :new_complaint,
-      forControlEvents: UIControlEventTouchUpInside)
-    self.navigationItem.rightBarButtonItem = UIBarButtonItem.alloc.initWithCustomView(add_button)
-
     self.tableView.reloadData
   end
   
@@ -40,6 +30,11 @@ class GrumbleBoxListViewController < UITableViewController
     50.0
   end
 
+  def new_complain
+    new_complain = GrumbleBoxViewController.new
+    self.navigationController.pushViewController(new_complain, animated: true)
+  end
+
   def setupNavigationBar
    self.navigationController.navigationBar.setBackgroundImage(UIImage.imageNamed("header.png"),
     forBarMetrics:UIBarMetricsDefault)
@@ -51,12 +46,11 @@ class GrumbleBoxListViewController < UITableViewController
     all_complains = UIButton.buttonWithType(UIButtonTypeCustom)
     all_complains.layer.cornerRadius = 5.0
     all_complains.layer.masksToBounds = true
-    all_complains.setTitle("All", forState:UIControlStateNormal)
     all_complains.titleLabel.font = UIFont.fontWithName("Optima",size:18)
-    all_complains.frame = [[280, 50], [56, 41]]
-    all_complains.setBackgroundImage(UIImage.imageNamed("view_all.jpg"), forState:UIControlStateNormal)
+    all_complains.frame = [[120, 50], [25, 25]]
+    all_complains.setBackgroundImage(UIImage.imageNamed("add_new.png"), forState:UIControlStateNormal)
     all_complains.addTarget(self, 
-      action:"list_complains", 
+      action:"new_complain", 
       forControlEvents:UIControlEventTouchUpInside)
     all_complains
   end

@@ -21,7 +21,7 @@ class GrumbleBoxViewController < UIViewController
     @button = button
     
     #custom navigation bar
-    setupNavigationBar
+    #setupNavigationBar
 
     # To capture image
     init_picker_btn
