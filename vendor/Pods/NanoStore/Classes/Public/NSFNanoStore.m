@@ -276,7 +276,6 @@
     
     BOOL success = [self _addObjectsFromArray:nonBagObjects forceSave:NO error:outError];
     
-    
     return success;
 }
 
@@ -559,7 +558,7 @@
 - (BOOL)saveStoreAndReturnError:(out NSError **)outError
 {
     // We are really not saving anything new, just indicating that we should commit the unsaved changes.
-    if (NO == _hasUnsavedChanges) {
+    if (NO == self.hasUnsavedChanges) {
         return YES;
     }
     
@@ -1180,6 +1179,8 @@
             self.saveInterval = 1;
         }
         
+        NSString *errorMessage = @"<error reason unknown>";
+        
         for (id object in _addedObjects) {
             @autoreleasepool {
                 // If the object was originally created by storing a class not recognized by this process, honor it and store it with the right class string.
@@ -1194,8 +1195,9 @@
                 }
                 
                 if (NO == [self _storeDictionary:[object nanoObjectDictionaryRepresentation] forKey:[(id)object nanoObjectKey] forClassNamed:className error:outError]) {
+                    if (nil != outError) errorMessage = [*outError localizedDescription];
                     [[NSException exceptionWithName:NSFNanoStoreUnableToManipulateStoreException
-                                             reason:[NSString stringWithFormat:@"*** -[%@ %@]: %@", [self class], NSStringFromSelector(_cmd), [*outError localizedDescription]]
+                                             reason:[NSString stringWithFormat:@"*** -[%@ %@]: %@", [self class], NSStringFromSelector(_cmd), errorMessage]
                                            userInfo:nil]raise];
                 } else {
                     SEL setStoreSelector = @selector(setStore:);
@@ -1212,16 +1214,18 @@
                 // Commit every 'saveInterval' interations...
                 if ((0 == i % self.saveInterval) && transactionStartedHere) {
                     if (NO == [self commitTransactionAndReturnError:outError]) {
+                        if (nil != outError) errorMessage = [*outError localizedDescription];
                         [[NSException exceptionWithName:NSFNanoStoreUnableToManipulateStoreException
-                                                 reason:[NSString stringWithFormat:@"*** -[%@ %@]: %@", [self class], NSStringFromSelector(_cmd), [*outError localizedDescription]]
+                                                 reason:[NSString stringWithFormat:@"*** -[%@ %@]: %@", [self class], NSStringFromSelector(_cmd), errorMessage]
                                                userInfo:nil]raise];
                     }
                     
                     if (YES == transactionStartedHere) {
                         transactionStartedHere = [self beginTransactionAndReturnError:outError];
                         if (NO == transactionStartedHere) {
+                            if (nil != outError) errorMessage = [*outError localizedDescription];
                             [[NSException exceptionWithName:NSFNanoStoreUnableToManipulateStoreException
-                                                     reason:[NSString stringWithFormat:@"*** -[%@ %@]: %@", [self class], NSStringFromSelector(_cmd), [*outError localizedDescription]]
+                                                     reason:[NSString stringWithFormat:@"*** -[%@ %@]: %@", [self class], NSStringFromSelector(_cmd), errorMessage]
                                                    userInfo:nil]raise];
                         }
                     }
@@ -1232,8 +1236,9 @@
         // Commit the changes
         if (transactionStartedHere) {
             if (NO == [self commitTransactionAndReturnError:outError]) {
+                if (nil != outError) errorMessage = [*outError localizedDescription];
                 [[NSException exceptionWithName:NSFNanoStoreUnableToManipulateStoreException
-                                         reason:[NSString stringWithFormat:@"*** -[%@ %@]: %@", [self class], NSStringFromSelector(_cmd), [*outError localizedDescription]]
+                                         reason:[NSString stringWithFormat:@"*** -[%@ %@]: %@", [self class], NSStringFromSelector(_cmd), errorMessage]
                                        userInfo:nil]raise];
             }
         }

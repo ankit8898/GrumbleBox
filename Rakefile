@@ -15,6 +15,6 @@ Motion::Project::App.setup do |app|
   app.icons << "grumbleicon.png"
   app.info_plist['UIStatusBarHidden'] = true
   app.pods do
-    pod 'NanoStore', '~> 2.5.3'
+    pod 'NanoStore', '~> 2.6.0'
   end
 end
